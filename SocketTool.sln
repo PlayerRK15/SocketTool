@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocketTool", "SocketTool.csproj", "{BF8A9320-4C8A-4BDF-8CD3-87E711C4DBB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserControlForRK15", "..\UserControlForRK15\UserControlForRK15.csproj", "{9FE27559-6CD4-448B-BAB8-43681282E8B5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF8A9320-4C8A-4BDF-8CD3-87E711C4DBB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF8A9320-4C8A-4BDF-8CD3-87E711C4DBB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF8A9320-4C8A-4BDF-8CD3-87E711C4DBB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF8A9320-4C8A-4BDF-8CD3-87E711C4DBB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FE27559-6CD4-448B-BAB8-43681282E8B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FE27559-6CD4-448B-BAB8-43681282E8B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FE27559-6CD4-448B-BAB8-43681282E8B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FE27559-6CD4-448B-BAB8-43681282E8B5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {02B0D5D6-40BA-4BC8-B208-5EB183E34783}
+	EndGlobalSection
+EndGlobal

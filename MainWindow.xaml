@@ -1,0 +1,17 @@
+﻿<Window x:Class="SocketTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SocketTool" xmlns:viewmodel="clr-namespace:SocketTool.ViewModel" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
+        mc:Ignorable="d"
+        xmlns:menuR="clr-namespace:UserControlForRK15;assembly=UserControlForRK15"
+        Title="通信工具" Height="540" Width="960">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Left" Width="60">
+            <menuR:StackMenu Height="525" Width="60"/>
+        </StackPanel>
+        <Button DockPanel.Dock="Right" Visibility="{Binding ShowLoadAnimation}" Template="{StaticResource OnLoad}"></Button>
+    </DockPanel>
+</Window>
