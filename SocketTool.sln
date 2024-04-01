@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocketTool", "SocketTool.csproj", "{BF8A9320-4C8A-4BDF-8CD3-87E711C4DBB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserControlForRK15", "..\UserControlForRK15\UserControlForRK15.csproj", "{9FE27559-6CD4-448B-BAB8-43681282E8B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserControlForRK15", "UserControlForRK15\UserControlForRK15.csproj", "{925F7515-B432-4F08-9C3D-52EB48B01CE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{BF8A9320-4C8A-4BDF-8CD3-87E711C4DBB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF8A9320-4C8A-4BDF-8CD3-87E711C4DBB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF8A9320-4C8A-4BDF-8CD3-87E711C4DBB7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9FE27559-6CD4-448B-BAB8-43681282E8B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9FE27559-6CD4-448B-BAB8-43681282E8B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9FE27559-6CD4-448B-BAB8-43681282E8B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9FE27559-6CD4-448B-BAB8-43681282E8B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{925F7515-B432-4F08-9C3D-52EB48B01CE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{925F7515-B432-4F08-9C3D-52EB48B01CE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{925F7515-B432-4F08-9C3D-52EB48B01CE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{925F7515-B432-4F08-9C3D-52EB48B01CE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

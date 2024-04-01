@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UserControlForRK15\**" />
+    <EmbeddedResource Remove="UserControlForRK15\**" />
+    <None Remove="UserControlForRK15\**" />
+    <Page Remove="UserControlForRK15\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resource\Image\LoadAnimation.png" />
   </ItemGroup>
 
@@ -31,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UserControlForRK15\UserControlForRK15.csproj" />
+    <ProjectReference Include="UserControlForRK15\UserControlForRK15.csproj" />
   </ItemGroup>
 
 </Project>

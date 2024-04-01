@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="UserControlForRK15.StackMenuItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UserControlForRK15"
+             DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+             mc:Ignorable="d" 
+             >
+    <UserControl.Resources>
+        <ControlTemplate x:Key="MenuItemTileBtn" TargetType="Button">
+            <Border Background="{TemplateBinding Background}">
+                <ContentPresenter Content="{TemplateBinding Content}"/>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="MenuItemChildBtn" TargetType="Button">
+            <Border Background="{TemplateBinding Background}">
+                <ContentPresenter Content="{TemplateBinding Content}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsMouseOver" Value="true">
+                    <Setter Property="Button.Foreground" Value="Aqua"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </UserControl.Resources>
+    <StackPanel >
+        <Button Template="{StaticResource MenuItemTileBtn}">
+            <StackPanel>
+                <Button  Background="{Binding HeadTileBackGroup}" Template="{StaticResource MenuItemTileBtn}">
+                    <StackPanel Height="20" Orientation="Horizontal">
+                        <TextBlock Text="{Binding HeadText}"/>
+                    </StackPanel>
+                </Button>
+                <StackPanel Visibility="Visible">
+                    <Button Content="测试1"  Background="{Binding ChildBackGroup}" Template="{StaticResource MenuItemChildBtn}"/>
+                    <Button Content="测试2"  Background="{Binding ChildBackGroup}" Template="{StaticResource MenuItemChildBtn}"/>
+                    <Button Content="测试3"  Background="{Binding ChildBackGroup}" Template="{StaticResource MenuItemChildBtn}"/>
+                </StackPanel>
+            </StackPanel>
+            <Button.Triggers>
+
+            </Button.Triggers>
+        </Button>
+    </StackPanel>
+</UserControl>
