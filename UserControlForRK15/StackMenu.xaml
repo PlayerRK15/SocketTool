@@ -4,8 +4,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UserControlForRK15"
+             DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
              mc:Ignorable="d" RenderTransformOrigin="0.5,0.5" 
              >
+    <UserControl.Resources>
+        <Style x:Key="TileBtn" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Background="{TemplateBinding OpacityMask}">
+                            <Canvas MinWidth="18" MinHeight="15">
+                                <Path Data="M13,5 L20,4" Fill="#FFF4F4F5" Height="1"  Stroke="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Stretch="Fill"  Width="16" Canvas.Left="1" Canvas.Top="1"/>
+                                <Path Data="M13,5 L20,4" Fill="#FFF4F4F5" Height="1"  Stroke="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Stretch="Fill"  Width="16" Canvas.Left="1" Canvas.Top="7" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                <Path Data="M13,5 L20,4" Fill="#FFF4F4F5" Height="1"  Stroke="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Stretch="Fill"  Width="16" Canvas.Left="1" Canvas.Top="13" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            </Canvas>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="OpacityMask" Value="#FFD6D6D6"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <UserControl.RenderTransform>
         <TransformGroup>
             <ScaleTransform/>
@@ -14,25 +37,21 @@
             <TranslateTransform x:Name="offset" X="0"/>
         </TransformGroup>
     </UserControl.RenderTransform>
-    <StackPanel Orientation="Vertical" Background="#FF02E2FF">
-        <Border Height="20" Width="20" Background="#FF02E2FF">
-            <Button HorizontalAlignment="Right" Click="Button_Click">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <ContentPresenter Content="{TemplateBinding Content}"/>
-                    </ControlTemplate>
-                </Button.Template>
-                <Canvas HorizontalAlignment="Right">
-                    <Path Data="M13,5 L20,4" Fill="#FFF4F4F5" Height="1"  Stroke="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Stretch="Fill"  Width="10" Canvas.Left="5" Canvas.Top="5"/>
-                    <Path Data="M13,5 L20,4" Fill="#FFF4F4F5" Height="1"  Stroke="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Stretch="Fill"  Width="10" Canvas.Left="5" Canvas.Top="9" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                    <Path Data="M13,5 L20,4" Fill="#FFF4F4F5" Height="1"  Stroke="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Stretch="Fill"  Width="10" Canvas.Left="5" Canvas.Top="13" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                </Canvas>
-            </Button>
-        </Border>
-        <StackPanel x:Name="MenuContent" RenderTransformOrigin="0.5,0.5">
-            <local:StackMenuItem HeadText="1级菜单    " HeadTileBackGroup="#FF02E2FF" ChildBackGroup="White"/>
-            <local:StackMenuItem HeadText="2级菜单    " HeadTileBackGroup="#FF02E2FF" ChildBackGroup="White"/>
-            <local:StackMenuItem HeadText="3级菜单    " HeadTileBackGroup="#FF02E2FF" ChildBackGroup="White"/>
+    <Grid Background="#FF02E2FF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="ColumnOne" Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Button HorizontalAlignment="Right" Click="Button_Click" Grid.Column="1" Style="{StaticResource TileBtn}" Margin="0,2,0,0" />
+            </Grid>
+            <StackPanel x:Name="MenuContent" RenderTransformOrigin="0.5,0.5" Margin="0,3,0,0">
+            </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </UserControl>
