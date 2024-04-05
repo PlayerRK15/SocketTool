@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -21,8 +22,11 @@ namespace SocketTool.ViewModel
         public void Navite(Page page,bool isAdd=false)
         {
             NavitePage?.Navigate(page);
-            OpenTcpService.
         }
-        public required ICommand OpenTcpService;
+        [RelayCommand]
+        public void OpenTcpService()
+        {
+            Navite(new View.TcpView.TcpServicePage());
+        }
     }
 }

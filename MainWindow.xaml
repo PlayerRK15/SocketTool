@@ -36,13 +36,13 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <DockPanel>
-        <menuR:StackMenu  DockPanel.Dock="Left" FontSize="20">
+    <DockPanel x:Name="dockPanel">
+        <menuR:StackMenu Name="MainMenu"  DockPanel.Dock="Left" FontSize="20">
             <menuR:StackMenu.Items>
                 <menuR:StackMenuItem HeadText="TCP" FontSize="15" Background="Black" Foreground="White">
                     <menuR:StackMenuItem.Items>
-                        <Button Content="服务端" Style="{StaticResource MenuChildBtn}" Command="{Binding OpenTcpService}"/>
-                        <Button Content="客户端" Style="{StaticResource MenuChildBtn}"/>
+                        <Button  Content="服务端" Style="{StaticResource MenuChildBtn}" Command="{Binding OpenTcpServiceCommand}"/>
+                        <Button  Content="客户端" Style="{StaticResource MenuChildBtn}" Command="{Binding OpenTcpServiceCommand}"/>
                     </menuR:StackMenuItem.Items>
                 </menuR:StackMenuItem>
                 <menuR:StackMenuItem HeadText="UDP" FontSize="15" Foreground="White">
@@ -55,6 +55,5 @@
             <Button Visibility="{Binding ShowLoadAnimation}" Template="{StaticResource OnLoad}"></Button>
             <Frame  x:Name="NavitePages" Visibility="{Binding ShowLoadAnimation,Converter={StaticResource VisibilityReverse}}" />
         </Grid>
-
     </DockPanel>
 </Window>

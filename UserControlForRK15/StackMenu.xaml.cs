@@ -67,6 +67,16 @@ namespace UserControlForRK15
             InitializeComponent();
             Items = MenuContent.Children;
         }
+        public void SetBinding(object DataContext)
+        {
+            foreach (var item in Items)
+            {
+                if(item is StackMenuItem menuItem)
+                {
+                    menuItem.MenuPanel.DataContext = DataContext;
+                }
+            }
+        }
         private void Button_Click(object sender, RoutedEventArgs e)=> IsShowMenu = !IsShowMenu;
     }
 }
