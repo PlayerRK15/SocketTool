@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SocketTool.ViewModel
 {
@@ -14,5 +15,11 @@ namespace SocketTool.ViewModel
     {
         [ObservableProperty]
         private Visibility showLoadAnimation=Visibility.Visible;
+        [ObservableProperty]
+        private Frame? navitePage;
+        public void Navite(Page page,bool isAdd=false)
+        {
+            NavitePage?.Navigate(page);
+        }
     }
 }

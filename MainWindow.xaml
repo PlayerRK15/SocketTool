@@ -51,6 +51,10 @@
                 </menuR:StackMenuItem>
             </menuR:StackMenu.Items>
         </menuR:StackMenu>
-        <Button DockPanel.Dock="Right" Visibility="{Binding ShowLoadAnimation}" Template="{StaticResource OnLoad}"></Button>
+        <Grid DockPanel.Dock="Left">
+            <Button Visibility="{Binding ShowLoadAnimation}" Template="{StaticResource OnLoad}"></Button>
+            <Frame  x:Name="NavitePages" Visibility="{Binding ShowLoadAnimation,Converter={StaticResource VisibilityReverse}}" />
+        </Grid>
+
     </DockPanel>
 </Window>

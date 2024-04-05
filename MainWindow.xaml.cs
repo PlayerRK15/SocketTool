@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using SocketTool.View;
 using SocketTool.ViewModel;
 using System.Text;
 using System.Windows;
@@ -19,21 +20,25 @@ namespace SocketTool
     public partial class MainWindow : Window
     {
         private readonly MainViewModel viewModel;
-#pragma warning disable CS8601 // 引用类型赋值可能为 null。
+#pragma warning disable CS8601,CS8602 // 引用类型赋值可能为 null。
 
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = App.Current.Services.GetService<MainViewModel>();
             this.viewModel   = App.Current.Services.GetService<MainViewModel>();
+            this.viewModel.NavitePage = NavitePages;
             LoadAsync();
         }
-#pragma warning restore CS8601 // 引用类型赋值可能为 null。
+#pragma warning restore CS8601,CS8602 // 引用类型赋值可能为 null。
 
         async void LoadAsync()
         {
-            await Task.Delay(5000);
-            viewModel.ShowLoadAnimation=Visibility.Collapsed;
+            this.IsEnabled = false;
+            await Task.Delay(3000);
+            this.IsEnabled = true;
+            this.viewModel.ShowLoadAnimation=Visibility.Collapsed;
+            this.viewModel.NavitePage?.Navigate(new View.Index());
         }
     }
 }
