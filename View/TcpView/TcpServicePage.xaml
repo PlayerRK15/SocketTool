@@ -3,15 +3,26 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:SocketTool.View.TcpView"
+      xmlns:local="clr-namespace:SocketTool.View.TcpView" 
+      xmlns:viewmodel="clr-namespace:SocketTool.ViewModel"
+      d:DataContext="{d:DesignInstance Type=viewmodel:TcpSerivceViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TcpServicePage">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="8*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
-    </Grid>
+    <DockPanel>
+        <TextBox DockPanel.Dock="Left"/>
+        <ListView DockPanel.Dock="Right" DataContext="{Binding Clients}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="IP:"/>
+                        <TextBlock Text="{Binding Host}"/>
+                        <Label Content="端口:"/>
+                        <TextBlock Text="{Binding Port}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </DockPanel>
 </Page>

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SocketTool.ViewModel
 {
@@ -20,6 +21,8 @@ namespace SocketTool.ViewModel
         public void Navite(Page page,bool isAdd=false)
         {
             NavitePage?.Navigate(page);
+            OpenTcpService.
         }
+        public required ICommand OpenTcpService;
     }
 }

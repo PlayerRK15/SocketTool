@@ -41,7 +41,7 @@
             <menuR:StackMenu.Items>
                 <menuR:StackMenuItem HeadText="TCP" FontSize="15" Background="Black" Foreground="White">
                     <menuR:StackMenuItem.Items>
-                        <Button Content="服务端" Style="{StaticResource MenuChildBtn}"/>
+                        <Button Content="服务端" Style="{StaticResource MenuChildBtn}" Command="{Binding OpenTcpService}"/>
                         <Button Content="客户端" Style="{StaticResource MenuChildBtn}"/>
                     </menuR:StackMenuItem.Items>
                 </menuR:StackMenuItem>
