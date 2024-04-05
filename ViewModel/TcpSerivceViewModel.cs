@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace SocketTool.ViewModel
 {
@@ -16,15 +17,15 @@ namespace SocketTool.ViewModel
         [ObservableProperty]
         private TcpServer? server;
         [ObservableProperty]
-        private string? host;
+        private string? host="127.0.0.1";
         [ObservableProperty]
-        private int port;
+        private int port=6688;
         [ObservableProperty]
         private bool isListen;
         [ObservableProperty]
         private List<EncodingInfo> encodings=[.. Encoding.GetEncodings()];
         [ObservableProperty]
-        private Encoding? selectEncoding=Encoding.UTF8;
+        private EncodingInfo? selectEncoding;
         [ObservableProperty]
         private int maxClinetMsgLength=50;
         [ObservableProperty]
@@ -42,12 +43,16 @@ namespace SocketTool.ViewModel
                 Server.Port = Port;
                 Server.MaxConnections = ListenLength;
                 Server.StartAsync();
+                var state = Server.State;
                 //客户端连接
                 Server.ClientConnected += (s, e) =>
                 {
-                    if (s is TcpClient client)
+                    if (e.Client is TcpClient client)
                     {
-                        Clients.Add((client));
+                        App.Current.Dispatcher.Invoke(() =>
+                        {
+                            Clients.Add((client));
+                        });
                         var ipPort = client.RemoteEndPoint.ToString();
                         if (!ClientMessages.ContainsKey(ipPort))
                         {
@@ -56,7 +61,7 @@ namespace SocketTool.ViewModel
                         //接收客户端消息传入字典
                         client.OnDataReceived += (s, e) =>
                         {
-                            if(SelectEncoding?.GetString(e.Data) is string msg)
+                            if(SelectEncoding?.GetEncoding()?.GetString(e.Data) is string msg)
                             {
                                 var msglist = ClientMessages[ipPort];
                                 if (msglist.Count > MaxClinetMsgLength)
@@ -88,9 +93,11 @@ namespace SocketTool.ViewModel
         }
 
         [ObservableProperty]
-        private uint listenLength;
+        private uint listenLength=10;
         [ObservableProperty]
-        private ObservableCollection<TcpClient> clients;
+        private ObservableCollection<TcpClient> clients=[];
+        [ObservableProperty]
+        private TcpClient? cliented;
 
         private readonly Dictionary<string, List<string>> ClientMessages=[];
         public List<string> GetClinetMessage(string clinetip) => ClientMessages[clinetip];

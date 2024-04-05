@@ -11,18 +11,55 @@
       Title="TcpServicePage">
 
     <DockPanel>
-        <TextBox DockPanel.Dock="Left"/>
-        <ListView DockPanel.Dock="Right" DataContext="{Binding Clients}">
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="IP:" MinWidth="40"/>
+                <TextBox Text="{Binding Host}" MinWidth="90"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <Label Content="端口:" MinWidth="40"/>
+                <TextBox Text="{Binding Port}" MinWidth="90"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                <Label Content="字符编码:" MinWidth="40"/>
+                <ComboBox MinWidth="72" ItemsSource="{Binding Encodings}" DisplayMemberPath="Name" SelectedItem="{Binding SelectEncoding}"/>
+            </StackPanel>
+            <Button Content="开始监听"  Grid.Row="1" Grid.Column="1"  Click="Button_Click"/>
+        </Grid>
+        <ListView DockPanel.Dock="Left" MinWidth="600" DataContext="{Binding Messages}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="IP:"/>
-                        <TextBlock Text="{Binding Host}"/>
-                        <Label Content="端口:"/>
-                        <TextBlock Text="{Binding Port}"/>
-                    </StackPanel>
+                    <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <StackPanel Background="White">
+            <TextBlock Text="客户端列表"/>
+            <ListView DockPanel.Dock="Right" MinHeight="300" ItemsSource="{Binding Clients}" SelectedItem="{Binding Cliented}" MaxWidth="200">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="IP:"/>
+                            <TextBlock Text="{Binding Host}"/>
+                            <Label Content="端口:"/>
+                            <TextBlock Text="{Binding Port}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
     </DockPanel>
 </Page>

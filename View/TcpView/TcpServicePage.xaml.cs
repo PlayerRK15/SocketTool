@@ -26,5 +26,10 @@ namespace SocketTool.View.TcpView
             InitializeComponent();
             this.DataContext= model = new ViewModel.TcpSerivceViewModel();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            model.IsListen = true;
+        }
     }
 }

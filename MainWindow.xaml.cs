@@ -24,7 +24,7 @@ namespace SocketTool
 
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();     
             this.DataContext = App.Current.Services.GetService<MainViewModel>();
             this.viewModel   = App.Current.Services.GetService<MainViewModel>();
             this.viewModel.NavitePage = NavitePages;
