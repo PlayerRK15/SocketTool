@@ -24,12 +24,7 @@ namespace SocketTool.View.TcpView
         public TcpServicePage()
         {
             InitializeComponent();
-            this.DataContext= model = new ViewModel.TcpSerivceViewModel();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            model.IsListen = true;
+            this.DataContext= model = new ViewModel.TcpSerivceViewModel(this.Dispatcher);
         }
     }
 }

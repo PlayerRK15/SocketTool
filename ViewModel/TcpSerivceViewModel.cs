@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using STTech.BytesIO.Tcp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,19 +19,20 @@ namespace SocketTool.ViewModel
         [ObservableProperty]
         private TcpServer? server;
         [ObservableProperty]
-        private string? host="127.0.0.1";
+        private string? host = "127.0.0.1";
         [ObservableProperty]
-        private int port=6688;
+        private int port = 6688;
+
         [ObservableProperty]
-        private bool isListen;
-        [ObservableProperty]
-        private List<EncodingInfo> encodings=[.. Encoding.GetEncodings()];
+        private List<EncodingInfo> encodings = [.. Encoding.GetEncodings()];
         [ObservableProperty]
         private EncodingInfo? selectEncoding;
         [ObservableProperty]
-        private int maxClinetMsgLength=50;
+        private int maxClinetMsgLength = 50;
         [ObservableProperty]
-        private ObservableCollection<string> messages = [];
+        private List<string> messages;
+        private readonly Queue<string> _msgstack = new();
+        [Obsolete]
         partial void OnIsListenChanged(bool value)
         {
             if (value)
@@ -61,23 +64,29 @@ namespace SocketTool.ViewModel
                         //接收客户端消息传入字典
                         client.OnDataReceived += (s, e) =>
                         {
-                            if(SelectEncoding?.GetEncoding()?.GetString(e.Data) is string msg)
+                            if (SelectEncoding?.GetEncoding()?.GetString(e.Data) is string msg)
                             {
                                 var msglist = ClientMessages[ipPort];
                                 if (msglist.Count > MaxClinetMsgLength)
                                 {
-                                    msglist.RemoveRange(0, msglist.Count- MaxClinetMsgLength);
+                                    msglist.RemoveRange(0, msglist.Count - MaxClinetMsgLength);
                                 }
-                                if(Messages?.Count>MaxClinetMsgLength)
+                                if (_msgstack?.Count > MaxClinetMsgLength)
                                 {
-                                    for (int i = 0; i < Messages.Count- MaxClinetMsgLength; i++)
+                                    Dispatcher.BeginInvoke(() =>
                                     {
-                                        Messages.RemoveAt(i);
-                                    }
+                                        _msgstack.Dequeue();
+                                    });
                                 }
                                 msg = $"{DateTime.Now:yyyy-MM-dd hh:mm:dd:fff} 接收:{ipPort}\r\n{msg}\r\n";
                                 msglist.Add(msg);
-                                Messages?.Add(msg);
+                                Dispatcher.BeginInvoke(() =>
+                                {
+                                    _msgstack?.Enqueue(msg);
+#pragma warning disable CS8601 // 引用类型赋值可能为 null。
+                                    Messages = _msgstack?.ToList();
+#pragma warning restore CS8601 // 引用类型赋值可能为 null。
+                                });
                             }
                         };
                     }
@@ -91,15 +100,28 @@ namespace SocketTool.ViewModel
                 }
             }
         }
-
         [ObservableProperty]
-        private uint listenLength=10;
+        private bool isListen;
         [ObservableProperty]
-        private ObservableCollection<TcpClient> clients=[];
+        private uint listenLength = 10;
+        [RelayCommand]
+        public void StartListen() => IsListen = true;
+        [RelayCommand]
+        public void StopListen() => IsListen = false;
+        [ObservableProperty]
+        private ObservableCollection<TcpClient> clients = [];
         [ObservableProperty]
         private TcpClient? cliented;
 
-        private readonly Dictionary<string, List<string>> ClientMessages=[];
+        private readonly Dictionary<string, List<string>> ClientMessages = [];
+
+        public Dispatcher Dispatcher { get; }
+
         public List<string> GetClinetMessage(string clinetip) => ClientMessages[clinetip];
+        public TcpSerivceViewModel(Dispatcher dispatcher)
+        {
+            SelectEncoding = Encodings[^1];
+            Dispatcher = dispatcher;
+        }
     }
 }

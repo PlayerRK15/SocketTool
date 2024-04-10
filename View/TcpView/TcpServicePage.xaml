@@ -10,10 +10,19 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TcpServicePage">
 
-    <DockPanel>
-        <Grid DockPanel.Dock="Bottom">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox Grid.Row="1"/>
+        <Grid Grid.Row="2">
             <Grid.RowDefinitions>
-                <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
@@ -22,44 +31,45 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal">
+            <DockPanel>
                 <Label Content="IP:" MinWidth="40"/>
                 <TextBox Text="{Binding Host}" MinWidth="90"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="1">
+            </DockPanel>
+            <DockPanel Grid.Row="1">
                 <Label Content="端口:" MinWidth="40"/>
                 <TextBox Text="{Binding Port}" MinWidth="90"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+            </DockPanel>
+            <DockPanel Grid.Row="0" Grid.Column="1">
                 <Label Content="字符编码:" MinWidth="40"/>
                 <ComboBox MinWidth="72" ItemsSource="{Binding Encodings}" DisplayMemberPath="Name" SelectedItem="{Binding SelectEncoding}"/>
-            </StackPanel>
-            <Button Content="开始监听"  Grid.Row="1" Grid.Column="1"  Click="Button_Click"/>
+            </DockPanel>
+            <UniformGrid Grid.Row="1" Grid.Column="1" Columns="2" HorizontalAlignment="Stretch">
+                <Button Content="开始监听" Command="{Binding StartListenCommand}" IsEnabled="{Binding IsListen,Converter={StaticResource BoolReverse}}"/>
+                <Button Content="停止监听" Command="{Binding StopListenCommand}" IsEnabled="{Binding IsListen}"/>
+            </UniformGrid>
         </Grid>
-        <ListView DockPanel.Dock="Left" MinWidth="600" DataContext="{Binding Messages}">
+        <ListView DockPanel.Dock="Left" MinWidth="600" ItemsSource="{Binding Messages}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <StackPanel Background="White">
-            <TextBlock Text="客户端列表"/>
-            <ListView DockPanel.Dock="Right" MinHeight="300" ItemsSource="{Binding Clients}" SelectedItem="{Binding Cliented}" MaxWidth="200">
+        <DockPanel Background="White" Grid.Column="1">
+            <TextBlock Text="客户端列表" DockPanel.Dock="Top"/>
+            <ListView DockPanel.Dock="Bottom" MinHeight="300" ItemsSource="{Binding Clients}" SelectedItem="{Binding Cliented}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="IP:"/>
-                            <TextBlock Text="{Binding Host}"/>
+                            <TextBlock Text="{Binding Host}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <Label Content="端口:"/>
-                            <TextBlock Text="{Binding Port}"/>
+                            <TextBlock Text="{Binding Port}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackPanel>
-    </DockPanel>
+        </DockPanel>
+    </Grid>
 </Page>
