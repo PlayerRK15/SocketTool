@@ -8,48 +8,10 @@
         mc:Ignorable="d"
         xmlns:menuR="clr-namespace:UserControlForRK15;assembly=UserControlForRK15"
         Title="通信工具" Height="540" Width="960">
-    <Window.Resources>
-        <Style x:Key="MenuChildBtn" TargetType="Button">
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Background">
-                <Setter.Value>
-                    <SolidColorBrush Color="{StaticResource {x:Static SystemColors.HighlightTextColorKey}}"/>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
-                            <ContentPresenter Content="{TemplateBinding Content}" Margin="2,0,0,0"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background">
-                        <Setter.Value>
-                            <SolidColorBrush Color="{StaticResource {x:Static SystemColors.ActiveBorderColorKey}}"/>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
     <DockPanel x:Name="dockPanel">
-        <menuR:StackMenu Name="MainMenu"  DockPanel.Dock="Left" FontSize="20">
-            <menuR:StackMenu.Items>
-                <menuR:StackMenuItem HeadText="TCP" FontSize="15" Background="Black" Foreground="White">
-                    <menuR:StackMenuItem.Items>
-                        <Button  Content="服务端" Style="{StaticResource MenuChildBtn}" Command="{Binding OpenTcpServiceCommand}"/>
-                        <Button  Content="客户端" Style="{StaticResource MenuChildBtn}" Command="{Binding OpenTcpServiceCommand}"/>
-                    </menuR:StackMenuItem.Items>
-                </menuR:StackMenuItem>
-                <menuR:StackMenuItem HeadText="UDP" FontSize="15" Foreground="White">
-                </menuR:StackMenuItem>
-                <menuR:StackMenuItem HeadText="Serial" FontSize="15" Foreground="White">
-                </menuR:StackMenuItem>
-            </menuR:StackMenu.Items>
+        <menuR:StackMenu Name="MainMenu" DockPanel.Dock="Left">
+            <Button  Content="服务端" Command="{Binding OpenTcpServiceCommand}"/>
+            <Button  Content="客户端" Command="{Binding OpenTcpServiceCommand}"/>
         </menuR:StackMenu>
         <Grid DockPanel.Dock="Left">
             <Button Visibility="{Binding ShowLoadAnimation}" Template="{StaticResource OnLoad}"></Button>

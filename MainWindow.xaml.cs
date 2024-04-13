@@ -28,7 +28,6 @@ namespace SocketTool
             this.DataContext = App.Current.Services.GetService<MainViewModel>();
             this.viewModel   = App.Current.Services.GetService<MainViewModel>();
             this.viewModel.NavitePage = NavitePages;
-            MainMenu.SetBinding(this.viewModel);
             LoadAsync();
         }
 #pragma warning restore CS8601,CS8602 // 引用类型赋值可能为 null。

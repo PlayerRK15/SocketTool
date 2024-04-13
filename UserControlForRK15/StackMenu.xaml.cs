@@ -22,61 +22,33 @@ namespace UserControlForRK15
     /// <summary>
     /// UserControl1.xaml 的交互逻辑
     /// </summary>
-    public partial class StackMenu : UserControl
+    public partial class StackMenu : StackPanel
     {
-
-        public bool IsShowMenu
-        {
-            get { return (bool)GetValue(IsShowMenuProperty); }
-            set
-            {
-                if (value)
-                {
-                    ColumnOne.Width = new GridLength(1,GridUnitType.Star);
-                    MenuContent.Visibility= Visibility.Visible;
-                }
-                else
-                {
-                    ColumnOne.Width = new GridLength(0);
-                    MenuContent.Visibility = Visibility.Collapsed;
-                }
-                SetValue(IsShowMenuProperty, value);
-            }
-        }
-
-        // Using a DependencyProperty as the backing store for IsShowMenu.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IsShowMenuProperty =
-            DependencyProperty.Register("IsShowMenu", typeof(bool), typeof(StackMenu), new PropertyMetadata(true));
-
-
-
-        public UIElementCollection Items
-        {
-            get { return (UIElementCollection)GetValue(ItemsProperty); }
-            set { SetValue(ItemsProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ItemsProperty =
-            DependencyProperty.Register("Items", typeof(UIElementCollection), typeof(StackMenu));
-
-
-
         public StackMenu()
         {
             InitializeComponent();
-            Items = MenuContent.Children;
         }
-        public void SetBinding(object DataContext)
+        public bool IsShow
         {
-            foreach (var item in Items)
-            {
-                if(item is StackMenuItem menuItem)
-                {
-                    menuItem.MenuPanel.DataContext = DataContext;
-                }
-            }
+            get { return (bool)GetValue(IsShowProperty); }
+            set { SetValue(IsShowProperty, value); }
         }
-        private void Button_Click(object sender, RoutedEventArgs e)=> IsShowMenu = !IsShowMenu;
+
+        // Using a DependencyProperty as the backing store for IsShow.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsShowProperty =
+            DependencyProperty.Register("IsShow", typeof(bool), typeof(StackMenu), new PropertyMetadata(false));
+
+
+        public string MenuTiletxt
+        {
+            get { return (string)GetValue(MenuTiletxtProperty); }
+            set { SetValue(MenuTiletxtProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MenuTiletxt.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MenuTiletxtProperty =
+            DependencyProperty.Register("MenuTiletxt", typeof(string), typeof(StackMenu), new PropertyMetadata("菜单"));
+
+
     }
 }
