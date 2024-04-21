@@ -19,15 +19,11 @@
             </menuR:StackMenu.Background>
             <menuR:StackMenuItem TileText="TCP" Foreground="Black" >
                 <Button  Content="服务端" Command="{Binding OpenTcpServiceCommand}"/>
-                <Button  Content="客户端" Command="{Binding OpenTcpServiceCommand}"/>
+                <Button  Content="客户端" Command="{Binding OpenTcpClientCommand}"/>
             </menuR:StackMenuItem>
-            <menuR:StackMenuItem TileText="UDP" Foreground="Black" >
-                <Button  Content="服务端" Command="{Binding OpenTcpServiceCommand}"/>
-                <Button  Content="客户端" Command="{Binding OpenTcpServiceCommand}"/>
+            <menuR:StackMenuItem TileText="UDP" Foreground="Black" IsShow="Collapsed">
             </menuR:StackMenuItem>
-            <menuR:StackMenuItem TileText="串口" Foreground="Black" >
-                <Button  Content="服务端" Command="{Binding OpenTcpServiceCommand}"/>
-                <Button  Content="客户端" Command="{Binding OpenTcpServiceCommand}"/>
+            <menuR:StackMenuItem TileText="串口" Foreground="Black" IsShow="Collapsed">
             </menuR:StackMenuItem>
         </menuR:StackMenu>
         <Grid DockPanel.Dock="Left">

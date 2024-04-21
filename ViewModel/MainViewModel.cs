@@ -46,8 +46,10 @@ namespace SocketTool.ViewModel
         [RelayCommand]
         public void OpenTcpService()
         {
-            Navite(new View.TcpView.TcpServicePage(), header:"TCP服务端");
+            Navite(new View.TcpView.TcpServiceView(), header:"TCP服务端");
         }
+        [RelayCommand]
+        public void OpenTcpClient() => Navite(new View.TcpView.TcpClientView(), header: "Tcp客户端");
         partial void OnNavitePageChanged(TabControl? value)
         {
             value.ItemsSource= PageList;

@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="SocketTool.View.TcpView.TcpClientView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SocketTool.View.TcpView"   
+             xmlns:viewmodel="clr-namespace:SocketTool.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance Type=viewmodel:TcpClientViewModel}">
+    <DockPanel>
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox Text="{Binding ReadMessage}" TextWrapping="Wrap"/>
+            <Grid Grid.Row="1">
+                <TextBox Margin="0,1,0,0" Text="{Binding SendText}"/>
+            </Grid>
+            <Border Grid.Column="1" Grid.Row="1">
+                <Button Content="发送" IsEnabled="{Binding IsConnect}" Command="{Binding SendMessageCommand}"/>
+            </Border>
+            <StackPanel Grid.Column="1">
+                <DockPanel>
+                    <Label Content="IP:" MinWidth="40"/>
+                    <TextBox Text="{Binding Host}" MinWidth="90"/>
+                </DockPanel>
+                <DockPanel >
+                    <Label Content="端口:" MinWidth="40"/>
+                    <TextBox Text="{Binding Port}" MinWidth="90"/>
+                </DockPanel>
+                <DockPanel Grid.Column="1">
+                    <Label Content="字符编码:" MinWidth="40"/>
+                    <ComboBox MinWidth="72" ItemsSource="{Binding Encodings}" DisplayMemberPath="Name" SelectedItem="{Binding SelectEncoding}"/>
+                </DockPanel>
+                <UniformGrid>
+                    <Button Content="连接" Command="{Binding StartConnectCommand}" IsEnabled="{Binding IsConnect,Converter={StaticResource BoolReverse}}"/>
+                    <Button Content="断开" Command="{Binding StopConnectCommand}" IsEnabled="{Binding IsConnect}"/>
+                </UniformGrid>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</UserControl>

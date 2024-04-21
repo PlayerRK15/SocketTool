@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Threading;
 
 namespace SocketTool.ViewModel
@@ -28,10 +29,12 @@ namespace SocketTool.ViewModel
         [ObservableProperty]
         private EncodingInfo? selectEncoding;
         [ObservableProperty]
-        private int maxClinetMsgLength = 50;
+        private int maxClientMsgLength = 50;
         [ObservableProperty]
         private List<string> messages;
         private readonly Queue<string> _msgstack = new();
+        [ObservableProperty]
+        private string sendText;
         [Obsolete]
         partial void OnIsListenChanged(bool value)
         {
@@ -67,11 +70,11 @@ namespace SocketTool.ViewModel
                             if (SelectEncoding?.GetEncoding()?.GetString(e.Data) is string msg)
                             {
                                 var msglist = ClientMessages[ipPort];
-                                if (msglist.Count > MaxClinetMsgLength)
+                                if (msglist.Count > MaxClientMsgLength)
                                 {
-                                    msglist.RemoveRange(0, msglist.Count - MaxClinetMsgLength);
+                                    msglist.RemoveRange(0, msglist.Count - MaxClientMsgLength);
                                 }
-                                if (_msgstack?.Count > MaxClinetMsgLength)
+                                if (_msgstack?.Count > MaxClientMsgLength)
                                 {
                                     Dispatcher.BeginInvoke(() =>
                                     {
@@ -116,8 +119,19 @@ namespace SocketTool.ViewModel
         private readonly Dictionary<string, List<string>> ClientMessages = [];
 
         public Dispatcher Dispatcher { get; }
-
-        public List<string> GetClinetMessage(string clinetip) => ClientMessages[clinetip];
+        [RelayCommand]
+        public void SendMessage()
+        {
+            foreach (var client in Server?.Clients)
+            {
+                client?.Send(SelectEncoding?.GetEncoding().GetBytes(SendText));
+            }
+            _msgstack?.Enqueue($"发:{SendText}\r\n");
+#pragma warning disable CS8601 // 引用类型赋值可能为 null。
+            Messages = _msgstack?.ToList();
+#pragma warning restore CS8601 // 引用类型赋值可能为 null。
+        }
+        public List<string> GetClientMessage(string Clientip) => ClientMessages[Clientip];
         public TcpSerivceViewModel(Dispatcher dispatcher)
         {
             SelectEncoding = Encodings[^1];

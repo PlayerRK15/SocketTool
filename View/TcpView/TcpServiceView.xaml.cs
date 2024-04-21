@@ -18,10 +18,10 @@ namespace SocketTool.View.TcpView
     /// <summary>
     /// TcpServicePage.xaml 的交互逻辑
     /// </summary>
-    public partial class TcpServicePage : UserControl
+    public partial class TcpServiceView : UserControl
     {
         ViewModel.TcpSerivceViewModel model;
-        public TcpServicePage()
+        public TcpServiceView()
         {
             InitializeComponent();
             this.DataContext= model = new ViewModel.TcpSerivceViewModel(this.Dispatcher);
