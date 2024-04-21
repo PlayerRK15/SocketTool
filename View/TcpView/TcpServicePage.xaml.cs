@@ -18,7 +18,7 @@ namespace SocketTool.View.TcpView
     /// <summary>
     /// TcpServicePage.xaml 的交互逻辑
     /// </summary>
-    public partial class TcpServicePage : Page
+    public partial class TcpServicePage : UserControl
     {
         ViewModel.TcpSerivceViewModel model;
         public TcpServicePage()

@@ -21,6 +21,46 @@
             </Canvas>
         </Border>
     </ControlTemplate>
+    <ControlTemplate x:Key="TriangleIco">
+        <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <Path Name="TrianglePath"   Data="M 0,0 L 0.3 0.5 0.6 0 Z" StrokeThickness="0.1" Stroke="#FFF1B55C" RenderTransformOrigin="1,0.5">
+                <Path.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="{Binding ElementName=TileTxtBlock, Path=FontSize}" ScaleY="{Binding ElementName=TileTxtBlock, Path=FontSize}"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform x:Name="TrianglePathTransform" Y="0"/>
+                    </TransformGroup>
+                </Path.RenderTransform>
+
+            </Path>
+            <Path Name="LinePath"     Data="M -0.1 0.8 L 0.7 0.8" StrokeThickness="0.1" Stroke="#FFF1CE29"  RenderTransformOrigin="1,0.5">
+                <Path.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="{Binding ElementName=TileTxtBlock, Path=FontSize}" ScaleY="{Binding ElementName=TileTxtBlock, Path=FontSize}"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Path.RenderTransform>
+            </Path>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard x:Name="EnterStory">
+                        <Storyboard>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TrianglePathTransform" Storyboard.TargetProperty="Y" RepeatBehavior="Forever">
+                                <LinearDoubleKeyFrame KeyTime="0:0:0.5" Value="2"/>
+                                <LinearDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <StopStoryboard BeginStoryboardName="EnterStory"/>
+                </EventTrigger>
+            </Grid.Triggers>
+        </Grid>
+    </ControlTemplate>
     <LinearGradientBrush x:Key="LineBrushTile" EndPoint="0.5,1" StartPoint="0.5,0">
         <GradientStop Color="Aqua" Offset="1"/>
     </LinearGradientBrush>

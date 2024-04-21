@@ -18,7 +18,7 @@ namespace SocketTool.View
     /// <summary>
     /// Index.xaml 的交互逻辑
     /// </summary>
-    public partial class Index : Page
+    public partial class Index : UserControl
     {
         public Index()
         {
