@@ -4,12 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SocketTool.ViewModel
 {
@@ -18,15 +21,36 @@ namespace SocketTool.ViewModel
         [ObservableProperty]
         private Visibility showLoadAnimation=Visibility.Visible;
         [ObservableProperty]
-        private Frame? navitePage;
-        public void Navite(Page page,bool isAdd=false)
+        private TabControl? navitePage;
+        [ObservableProperty]
+        private List<TabItem> pageList=[];
+        public void Navite(UserControl page,bool isAdd=false,string header="新建标签页")
         {
-            NavitePage?.Navigate(page);
+            var hander = new StackPanel() { Orientation = Orientation.Horizontal };
+            hander.Children.Add(new TextBlock() { Text = header });
+            var closeBtn = new TextBlock() { Text = "×"};
+            hander.Children.Add(closeBtn);
+            var tabItem = new TabItem
+            {
+                Header = hander,
+                Content = page
+            };
+            PageList.Add(tabItem);
+            closeBtn.MouseDown += (s, e) => {
+                PageList.Remove(tabItem);
+                NavitePage.Items.Refresh();
+            };
+            NavitePage.SelectedItem = tabItem;
+            NavitePage.Items.Refresh();
         }
         [RelayCommand]
         public void OpenTcpService()
         {
-            Navite(new View.TcpView.TcpServicePage());
+            Navite(new View.TcpView.TcpServicePage(), header:"TCP服务端");
+        }
+        partial void OnNavitePageChanged(TabControl? value)
+        {
+            value.ItemsSource= PageList;
         }
     }
 }
