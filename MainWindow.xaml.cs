@@ -38,7 +38,7 @@ namespace SocketTool
             await Task.Delay(3000);
             this.IsEnabled = true;
             this.viewModel.ShowLoadAnimation=Visibility.Collapsed;
-            this.viewModel.NavitePage?.Navigate(new View.Index());
+            this.viewModel.Navite(new View.Index(),header:"索引页");
         }
     }
 }

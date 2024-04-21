@@ -9,13 +9,30 @@
         xmlns:menuR="clr-namespace:UserControlForRK15;assembly=UserControlForRK15"
         Title="通信工具" Height="540" Width="960">
     <DockPanel x:Name="dockPanel">
-        <menuR:StackMenu Name="MainMenu" DockPanel.Dock="Left">
-            <Button  Content="服务端" Command="{Binding OpenTcpServiceCommand}"/>
-            <Button  Content="客户端" Command="{Binding OpenTcpServiceCommand}"/>
+        <menuR:StackMenu Name="MainMenu" DockPanel.Dock="Left" MenuTileFontSize="20" MenuTiletxt="菜单">
+            <menuR:StackMenu.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF4D6352" Offset="0.54"/>
+                    <GradientStop Color="#FF6BFF66" Offset="0.04"/>
+                    <GradientStop Color="#FF426B4C" Offset="0.88"/>
+                </LinearGradientBrush>
+            </menuR:StackMenu.Background>
+            <menuR:StackMenuItem TileText="TCP" Foreground="Black" >
+                <Button  Content="服务端" Command="{Binding OpenTcpServiceCommand}"/>
+                <Button  Content="客户端" Command="{Binding OpenTcpServiceCommand}"/>
+            </menuR:StackMenuItem>
+            <menuR:StackMenuItem TileText="UDP" Foreground="Black" >
+                <Button  Content="服务端" Command="{Binding OpenTcpServiceCommand}"/>
+                <Button  Content="客户端" Command="{Binding OpenTcpServiceCommand}"/>
+            </menuR:StackMenuItem>
+            <menuR:StackMenuItem TileText="串口" Foreground="Black" >
+                <Button  Content="服务端" Command="{Binding OpenTcpServiceCommand}"/>
+                <Button  Content="客户端" Command="{Binding OpenTcpServiceCommand}"/>
+            </menuR:StackMenuItem>
         </menuR:StackMenu>
         <Grid DockPanel.Dock="Left">
             <Button Visibility="{Binding ShowLoadAnimation}" Template="{StaticResource OnLoad}"></Button>
-            <Frame  x:Name="NavitePages" Visibility="{Binding ShowLoadAnimation,Converter={StaticResource VisibilityReverse}}" />
+            <TabControl  x:Name="NavitePages" Visibility="{Binding ShowLoadAnimation,Converter={StaticResource VisibilityReverse}}"/>
         </Grid>
     </DockPanel>
 </Window>
