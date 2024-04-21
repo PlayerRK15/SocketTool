@@ -1,15 +1,15 @@
-﻿<StackPanel x:Class="UserControlForRK15.StackMenu"
+﻿<ItemsControl  x:Class="UserControlForRK15.StackMenu"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UserControlForRK15"
-             mc:Ignorable="d" RenderTransformOrigin="0.5,0.5" Margin="0 2 2 2"
-             Name="thismenu">
-    <StackPanel.Resources>
+             mc:Ignorable="d" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,0" 
+             Name="thismenu" >
+    <ItemsControl.Resources>
         <Style TargetType="Button">
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="False">
+                <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Effect">
                         <Setter.Value>
                             <DropShadowEffect BlurRadius="5" Direction="0" Opacity="1" ShadowDepth="0" Color="Black" RenderingBias="Performance"/>
@@ -18,50 +18,21 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-    </StackPanel.Resources>
-    <Grid DataContext="{Binding ElementName=thismenu}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="8*"/>
-            <ColumnDefinition Width="18"/>
-        </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="0" Text="测试" x:Name="TileTxtBlock" VerticalAlignment="Center" FontSize="20" />
-        <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
-            <Path Name="TrianglePath"   Data="M 0,0 L 0.3 0.5 0.6 0 Z" StrokeThickness="0.1" Stroke="#FFF1B55C" RenderTransformOrigin="1,0.5">
-                <Path.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="{Binding ElementName=TileTxtBlock, Path=FontSize}" ScaleY="{Binding ElementName=TileTxtBlock, Path=FontSize}"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform x:Name="TrianglePathTransform" Y="0"/>
-                    </TransformGroup>
-                </Path.RenderTransform>
-
-            </Path>
-            <Path Name="LinePath"     Data="M -0.1 0.8 L 0.7 0.8" StrokeThickness="0.1" Stroke="#FFF1CE29"  RenderTransformOrigin="1,0.5">
-                <Path.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="{Binding ElementName=TileTxtBlock, Path=FontSize}" ScaleY="{Binding ElementName=TileTxtBlock, Path=FontSize}"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Path.RenderTransform>
-            </Path>
-            <Grid.Triggers>
-                <EventTrigger RoutedEvent="MouseEnter">
-                    <BeginStoryboard x:Name="EnterStory">
-                        <Storyboard>
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TrianglePathTransform" Storyboard.TargetProperty="Y" RepeatBehavior="Forever">
-                                <LinearDoubleKeyFrame KeyTime="0:0:0.5" Value="2"/>
-                                <LinearDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
-                            </DoubleAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-                <EventTrigger RoutedEvent="MouseLeave">
-                    <StopStoryboard BeginStoryboardName="EnterStory"/>
-                </EventTrigger>
-            </Grid.Triggers>
-        </Grid>
-    </Grid>
-</StackPanel>
+    </ItemsControl.Resources>
+    <ItemsControl.Template>
+        <ControlTemplate>
+            <Grid DataContext="{Binding ElementName=thismenu}" Background="{TemplateBinding Background}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="ColumnContent" Width="8*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Grid.Column="0" Text="{Binding MenuTiletxt}" DataContext="{Binding ElementName=thismenu}" x:Name="TileTxtBlock" FontSize="{Binding MenuTileFontSize}" Margin="0,0,0,5" HorizontalAlignment="Left"/>
+                    <ItemsPresenter/>
+                </StackPanel>
+                <TextBlock Grid.Column="0" Name="Close" DataContext="{Binding ElementName=thismenu}" Text="◁" FontSize="{Binding MenuTileFontSize}" VerticalAlignment="Center" HorizontalAlignment="Right" MouseDown="TextBlock_MouseDown" RenderTransformOrigin="0.5,0.5" />
+                <TextBlock Grid.Column="1" Name="Show" DataContext="{Binding ElementName=thismenu}" Text="" FontSize="{Binding MenuTileFontSize}" VerticalAlignment="Center" HorizontalAlignment="Center" MouseDown="TextBlock_MouseDown" RenderTransformOrigin="0.5,0.5"/>
+            </Grid> 
+        </ControlTemplate>
+    </ItemsControl.Template>
+</ItemsControl> 
