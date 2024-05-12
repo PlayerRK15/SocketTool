@@ -2,6 +2,7 @@
 using SocketTool.ViewModel;
 using System.Configuration;
 using System.Data;
+using System.Text;
 using System.Windows;
 
 namespace SocketTool
@@ -11,7 +12,7 @@ namespace SocketTool
         public App()
         {
             Services = ConfigureServices();
-
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             this.InitializeComponent();
         }
 

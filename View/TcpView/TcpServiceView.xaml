@@ -52,7 +52,7 @@
         <ListView DockPanel.Dock="Left" MinWidth="600" ItemsSource="{Binding Messages}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
+                    <TextBox Text="{Binding Mode=OneWay}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
@@ -71,6 +71,14 @@
                 </ListView.ItemTemplate>
             </ListView>
         </DockPanel>
-        <Button Grid.Column="1" Grid.Row="1" Content="发送" Command="{Binding SendMessageCommand}"/>
+        <UniformGrid  Grid.Column="1" Grid.Row="1">
+            <Button Content="发送" Command="{Binding SendMessageCommand}"/>
+            <Button Content="清空" Command="{Binding SendMessageCommand}"/>
+            <Button Content="循环发送" Command="{Binding SendMessageCommand}"/>
+            <DockPanel>
+                <Label DockPanel.Dock="Right" Content="次" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                <RichTextBox DockPanel.Dock="Left"/>
+            </DockPanel>
+        </UniformGrid>
     </Grid>
 </UserControl>

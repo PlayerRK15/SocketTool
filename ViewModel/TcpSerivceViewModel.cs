@@ -40,10 +40,7 @@ namespace SocketTool.ViewModel
         {
             if (value)
             {
-                if (Server is null)
-                {
-                    Server = new TcpServer();
-                }
+                Server = new TcpServer();
                 Server.StopAsync();
                 Server.Host = Host;
                 Server.Port = Port;
@@ -55,7 +52,7 @@ namespace SocketTool.ViewModel
                 {
                     if (e.Client is TcpClient client)
                     {
-                        App.Current.Dispatcher.Invoke(() =>
+                        Dispatcher.Invoke(() =>
                         {
                             Clients.Add((client));
                         });
@@ -65,42 +62,57 @@ namespace SocketTool.ViewModel
                             ClientMessages.Add(ipPort, new List<string>());
                         }
                         //接收客户端消息传入字典
-                        client.OnDataReceived += (s, e) =>
-                        {
-                            if (SelectEncoding?.GetEncoding()?.GetString(e.Data) is string msg)
-                            {
-                                var msglist = ClientMessages[ipPort];
-                                if (msglist.Count > MaxClientMsgLength)
-                                {
-                                    msglist.RemoveRange(0, msglist.Count - MaxClientMsgLength);
-                                }
-                                if (_msgstack?.Count > MaxClientMsgLength)
-                                {
-                                    Dispatcher.BeginInvoke(() =>
-                                    {
-                                        _msgstack.Dequeue();
-                                    });
-                                }
-                                msg = $"{DateTime.Now:yyyy-MM-dd hh:mm:dd:fff} 接收:{ipPort}\r\n{msg}\r\n";
-                                msglist.Add(msg);
-                                Dispatcher.BeginInvoke(() =>
-                                {
-                                    _msgstack?.Enqueue(msg);
-#pragma warning disable CS8601 // 引用类型赋值可能为 null。
-                                    Messages = _msgstack?.ToList();
-#pragma warning restore CS8601 // 引用类型赋值可能为 null。
-                                });
-                            }
-                        };
+                        client.OnDataReceived += OnClientReceived;
                     }
+                };
+                Server.ClientDisconnected += (s, e) =>
+                {
+                    if (e.Client is TcpClient client)
+                        Dispatcher.Invoke(() =>
+                        {
+                            Clients.Remove((client));
+                        });
                 };
             }
             else
             {
                 if (Server is not null)
                 {
+                    Server.CloseAsync();
                     Server.StopAsync();
                 }
+            }
+        }
+        private void OnClientReceived(object? s, STTech.BytesIO.Core.DataReceivedEventArgs e)
+        {
+            if (s is null)
+            {
+                return;
+            }
+            var ipPort = ((TcpClient)s).RemoteEndPoint.ToString();
+            if (SelectEncoding?.GetEncoding()?.GetString(e.Data) is string msg)
+            {
+                var msglist = ClientMessages[ipPort];
+                if (msglist.Count > MaxClientMsgLength)
+                {
+                    msglist.RemoveRange(0, msglist.Count - MaxClientMsgLength);
+                }
+                Dispatcher.BeginInvoke(() =>
+                {
+                    while (_msgstack?.Count > MaxClientMsgLength)
+                    {
+                        _msgstack.Dequeue();
+                    }
+                });
+                msg = $"{DateTime.Now:yyyy-MM-dd hh:mm:dd:fff} 接收:{ipPort}\r\n{msg}\r\n";
+                msglist.Add(msg);
+                Dispatcher.BeginInvoke(() =>
+                {
+                    _msgstack?.Enqueue(msg);
+#pragma warning disable CS8601 // 引用类型赋值可能为 null。
+                    Messages = _msgstack?.ToList();
+#pragma warning restore CS8601 // 引用类型赋值可能为 null。
+                });
             }
         }
         [ObservableProperty]
@@ -122,10 +134,14 @@ namespace SocketTool.ViewModel
         [RelayCommand]
         public void SendMessage()
         {
+            if (SendText is null)
+                return;
+#pragma warning disable CS8602 // 解引用可能出现空引用。
             foreach (var client in Server?.Clients)
             {
                 client?.Send(SelectEncoding?.GetEncoding().GetBytes(SendText));
             }
+#pragma warning restore CS8602 // 解引用可能出现空引用。
             _msgstack?.Enqueue($"发:{SendText}\r\n");
 #pragma warning disable CS8601 // 引用类型赋值可能为 null。
             Messages = _msgstack?.ToList();

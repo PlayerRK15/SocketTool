@@ -26,5 +26,6 @@ namespace SocketTool.View.TcpView
             InitializeComponent();
             this.DataContext= model = new ViewModel.TcpSerivceViewModel(this.Dispatcher);
         }
+        
     }
 }
