@@ -52,7 +52,7 @@
         <ListView DockPanel.Dock="Left" MinWidth="600" ItemsSource="{Binding Messages}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBox Text="{Binding Mode=OneWay}"/>
+                    <TextBox Text="{Binding Mode=OneWay}" Width="{Binding}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using STTech.BytesIO.Core;
 using STTech.BytesIO.Tcp;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -63,6 +65,7 @@ namespace SocketTool.ViewModel
                         }
                         //接收客户端消息传入字典
                         client.OnDataReceived += OnClientReceived;
+                        client.UseHeartbeatTimeout(6000 * 6000);
                     }
                 };
                 Server.ClientDisconnected += (s, e) =>
